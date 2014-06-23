@@ -1,4 +1,4 @@
-This is so dumb it doesn't deserve to even be a repo. But in an effort to not infect other codebases with this terrible (except as an insidious dependency), it has been placed here.
+This is so dumb it doesn't deserve to even be a repo. But in an effort to not infect other codebases with this terrible code (except as an insidious dependency), it has been placed here.
 
 GetURI
 ======
