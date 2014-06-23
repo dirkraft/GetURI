@@ -12,7 +12,12 @@ import java.util.regex.Pattern;
 
 public class GetURI {
 
-    private static final Pattern PAT_BAD_QUERY_CHAR = Pattern.compile("^Illegal character in query at index (\\d+):.*");
+    private static final Pattern PAT_BAD_QUERY_CHAR = Pattern.compile("^Illegal character in (query|path) at index (\\d+):.*");
+
+    /**
+     * Maximum number of exceptions to tolerate and attempt to fix in appeasing URI.
+     */
+    public static final int MAX_GRIT = 100;
 
     /**
      * A collection of UGHWTF to attempt to validify (to make valid) urls that would otherwise trigger
@@ -54,7 +59,7 @@ public class GetURI {
     public static URI orDieTryin(String url) throws RuntimeException {
         URI uri = null;
 
-        for (int i = 0; uri == null && i < 100; i++) { // maximum cleaning iterations for safety
+        for (int i = 0; uri == null && i < MAX_GRIT; i++) { // maximum cleaning iterations for safety
             try {
                 uri = new URI(url);
 
@@ -62,9 +67,12 @@ public class GetURI {
                 if (e.getMessage() == null) {
                     throw new RuntimeException(e);
                 }
+
+                boolean handled = false;
+
                 Matcher m = PAT_BAD_QUERY_CHAR.matcher(e.getMessage());
                 if (m.find()) {
-                    int badCharIdx = Integer.parseInt(m.group(1));
+                    int badCharIdx = Integer.parseInt(m.group(2));
                     char badChar = url.charAt(badCharIdx);
                     String hex = Integer.toHexString(badChar);
                     if (hex.length() == 1) {
@@ -77,6 +85,11 @@ public class GetURI {
                     String pfx = url.substring(0, badCharIdx);
                     String sfx = badCharIdx + 1 == url.length() ? "" : url.substring(badCharIdx + 1);
                     url = pfx + '%' + hex + sfx;
+                    handled = true;
+                }
+
+                if (!handled) {
+                    throw new RuntimeException(e);
                 }
             }
         }
