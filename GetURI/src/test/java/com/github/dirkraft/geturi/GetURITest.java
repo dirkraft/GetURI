@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2014 Jason Dunkelberger (dirkraft)
+ *
+ * See the file license.txt for copying permission.
+ */
 package com.github.dirkraft.geturi;
 
 import org.junit.Assert;

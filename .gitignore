@@ -7,4 +7,5 @@ out/
 
 # Gradle
 .gradle/
+build/
 
