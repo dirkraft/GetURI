@@ -1,3 +1,5 @@
 dependencies {
     testCompile deps.junit
 }
+
+uploadArchives.enabled = true
