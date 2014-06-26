@@ -1,4 +1,4 @@
-This is so dumb it doesn't deserve to even be a repo. But in an effort to not infect other codebases with this terrible code (except as an insidious dependency), it has been placed here.
+This probably doesn't deserve to be a repo, but as quarantine from other codebases (except as an insidious dependency), it's here.
 
 GetURI
 ======
@@ -8,3 +8,8 @@ There is one class with one static method. It takes any arbitrary URL and turns 
 
     URI javaIsOkayWithThis = GetURI.orDieTryin(demonicUrl);
 
+The approach includes "deep learning" features modeled after real human behavior.
+
+  - Read the exception
+  - Fix the thing complained about in the exception
+  - Try it again
