@@ -27,7 +27,7 @@ We has a maven!
     	<version>0.0.2</version>
     </dependency>
 
-Other copyable dependency inclusions: http://mvnrepository.com/artifact/com.github.dirkraft/GetURI/0.0.2
+Other variants: http://mvnrepository.com/artifact/com.github.dirkraft/GetURI/0.0.2
 
 
 ## Contributions ##
