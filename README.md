@@ -28,3 +28,8 @@ We has a maven!
     </dependency>
 
 Other copyable dependency inclusions: http://mvnrepository.com/artifact/com.github.dirkraft/GetURI/0.0.2
+
+
+## Contributions ##
+Have you spotted the rare and wistful URISyntaxException through GetURI? Breaking examples (and patches to deal with them) are welcome.
+
