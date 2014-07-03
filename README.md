@@ -1,4 +1,4 @@
-Fixes URISyntaxException. Now you can use Java again!
+*Fixes* URISyntaxException when trying to use (or through a library use) java.net.URI. Now you can use Java again!
 
 
 GetURI
