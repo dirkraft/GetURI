@@ -1,4 +1,5 @@
-This probably doesn't deserve to be a repo, but as quarantine from other codebases (except as an insidious dependency), it's here.
+Fixes URISyntaxException. Now you can use Java again!
+
 
 GetURI
 ======
@@ -13,3 +14,5 @@ The approach includes "deep learning" features modeled after real human behavior
   - Read the exception
   - Fix the thing complained about in the exception
   - Try it again
+
+Realize that by "fixing" the URL so that Java will accept it against rfc3986 (java.net.URI), you are changing the bytes. It is not identical to the original. Most of the time this will not result in any measurable difference, but there's your warning.
