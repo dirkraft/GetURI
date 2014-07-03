@@ -16,3 +16,15 @@ The approach includes "deep learning" features modeled after real human behavior
   - Try it again
 
 Realize that by "fixing" the URL so that Java will accept it against rfc3986 (java.net.URI), you are changing the bytes. It is not identical to the original. Most of the time this will not result in any measurable difference, but there's your warning.
+
+
+## Maven ##
+We has a maven!
+
+    <dependency>
+    	<groupId>com.github.dirkraft</groupId>
+    	<artifactId>GetURI</artifactId>
+    	<version>0.0.2</version>
+    </dependency>
+
+Other copyable dependency inclusions: http://mvnrepository.com/artifact/com.github.dirkraft/GetURI/0.0.2
