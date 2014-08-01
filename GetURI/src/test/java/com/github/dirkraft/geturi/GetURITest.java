@@ -29,14 +29,16 @@ public class GetURITest {
             // http://www.coderanch.com/t/609406/java/java/java-net-URISyntaxException-Illegal-character
             "http://200.16.86.50/uhtbin/cgisirsi.exe/7TMAN1mSLU/BC/110630017/123?query_type=search&searchdata1=0521446910&srchfield1=GENERAL^SUBJECT^GENERAL^^Todos+los+campos&library=ALL&sort_by=-PBYR",
             // http://ocpsoft.org/support/topic/urisyntaxexception-illegal-character-in-path-on-square-brackets/
-            "http://localhost/1.+[=+100.]+Verba+mea+auribus"
+            "http://localhost/1.+[=+100.]+Verba+mea+auribus",
+            // I actually made this one up. Sorry. +1 Lie
+            "http://localhost/fi-shocktrade%3B-fence-tool-combo?idklol=some%2fthing%another#crunch"
     );
 
     @Test
     public void testOrDieTryin() {
         for (String badUrl : urls) {
             URI uri = GetURI.orDieTryin(badUrl);
-            Assert.assertNotNull(uri);
+            Assert.assertNotNull(uri.toString(), uri);
             System.out.println(String.format("deadly : %s\nsterile: %s", badUrl, uri));
         }
     }

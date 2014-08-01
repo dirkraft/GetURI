@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 public class GetURI {
 
     private static final Pattern PAT_BAD_QUERY_CHAR = Pattern.compile("^Illegal character in (query|path) at index (\\d+):.*");
+    private static final Pattern PAT_MALFORMED_ESCAPE_PAIR = Pattern.compile("^Malformed escape pair at index (\\d+):.*");
 
     /**
      * Maximum number of exceptions to tolerate and attempt to fix in appeasing URI.
@@ -69,24 +70,23 @@ public class GetURI {
                 }
 
                 boolean handled = false;
+                HandlerResult result;
 
-                Matcher m = PAT_BAD_QUERY_CHAR.matcher(e.getMessage());
-                if (m.find()) {
-                    int badCharIdx = Integer.parseInt(m.group(2));
-                    char badChar = url.charAt(badCharIdx);
-                    String hex = Integer.toHexString(badChar);
-                    if (hex.length() == 1) {
-                        hex = '0' + hex;
-                    }
-                    if (hex.length() != 2) {
-                        throw new RuntimeException("Character " + badChar + " hexed too large " + hex +
-                                ". I only know how to make 2-digit %-hex codes.");
-                    }
-                    String pfx = url.substring(0, badCharIdx);
-                    String sfx = badCharIdx + 1 == url.length() ? "" : url.substring(badCharIdx + 1);
-                    url = pfx + '%' + hex + sfx;
-                    handled = true;
+                // Exception processors
+
+                if (!handled) {
+                    result = handleIllegalCharacter(url, e.getMessage());
+                    url = result.url;
+                    handled |= result.handled;
                 }
+
+                if (!handled) {
+                    result = handleMalformedEscapePair(url, e.getMessage());
+                    url = result.url;
+                    handled |= result.handled;
+                }
+
+                // We're out of tricks. "Die tryin'"
 
                 if (!handled) {
                     throw new RuntimeException(e);
@@ -95,5 +95,52 @@ public class GetURI {
         }
 
         return uri;
+    }
+
+    static HandlerResult handleIllegalCharacter(String url, String exceptionMsg) {
+        Matcher m = PAT_BAD_QUERY_CHAR.matcher(exceptionMsg);
+        boolean handled = false;
+        if (m.find()) {
+            int badCharIdx = Integer.parseInt(m.group(2));
+            char badChar = url.charAt(badCharIdx);
+            String hex = Integer.toHexString(badChar);
+            if (hex.length() == 1) {
+                hex = '0' + hex;
+            }
+            if (hex.length() != 2) {
+                throw new RuntimeException("Character " + badChar + " hexed too large " + hex +
+                        ". I only know how to make 2-digit %-hex codes.");
+            }
+            String pfx = url.substring(0, badCharIdx);
+            String sfx = badCharIdx + 1 == url.length() ? "" : url.substring(badCharIdx + 1);
+            url = pfx + '%' + hex + sfx;
+            handled = true;
+        }
+        return new HandlerResult(url, handled);
+    }
+
+    static HandlerResult handleMalformedEscapePair(String url, String exceptionMsg) {
+        Matcher m = PAT_MALFORMED_ESCAPE_PAIR.matcher(exceptionMsg);
+        boolean handled = false;
+        if (m.find()) {
+            // Let's just go with: They want an actual % which is encoded as %25. Too much guessing if its a bad escape,
+            // and how long the escape should be since UTF-8 characters have varying byte sizes.
+            int badCharIdx = Integer.parseInt(m.group(1));
+            String pfx = url.substring(0, badCharIdx);
+            String sfx = badCharIdx + 1 == url.length() ? "" : url.substring(badCharIdx + 1);
+            url = pfx + "%25" + sfx;
+            handled = true;
+        }
+        return new HandlerResult(url, handled);
+    }
+
+    static class HandlerResult {
+        String url;
+        boolean handled;
+
+        HandlerResult(String url, boolean handled) {
+            this.url = url;
+            this.handled = handled;
+        }
     }
 }
