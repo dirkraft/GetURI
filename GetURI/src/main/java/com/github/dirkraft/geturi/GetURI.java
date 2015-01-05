@@ -30,7 +30,7 @@ public class GetURI {
      * <p>
      * This method is probably not performant, but it guarantees the absolute minimum changes required to pass
      * validation because it bases "fixes" directly on the URISyntaxExceptions themselves.
-     * <hr/>
+     * <hr>
      * <em>Rant:</em>
      * YEAH, you could "fix" the URL to coincide with some well-defined standard with reserved characters
      * (I'm looking at you, rfc3986). Then you wouldn't be doing something so terrible as parsing exception
@@ -52,9 +52,12 @@ public class GetURI {
      * So what I'm saying is: <strong>don't try to "fix" this anymore than is necessary</strong>. Also <strong>don't try
      * to be efficient in "fixing" URLs</strong>. You don't even know what "fixed" is. You can't because it's really up
      * to each server. Do not stare directly at java.net.URI source.
-     * <p>
+     *
      * <h1><a href="http://gunshowcomic.com/648">Everything is fine.</a></h1>
      *
+     * @param url whatever rough url you've got
+     * @return a valid URI based on the given url. "Fixes" will result in a URI that is not byte-for-byte equivalent
+     * to the characters of the original url.
      * @throws RuntimeException "orDieTryin", if unable to appease the URI gods of Java.
      */
     public static URI orDieTryin(String url) throws RuntimeException {
