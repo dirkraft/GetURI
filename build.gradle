@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Settings
 ext {
-    project_group = 'com.github.dirkraft'
+    project_group = 'com.github.dirkraft.GetURI'
     project_version = '0.0.4-SNAPSHOT'
     project_jdk = '1.6'
     project_pom = {
@@ -168,7 +168,7 @@ subprojects {
 // Misc
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.12'
+    gradleVersion = '2.2.1'
 }
 
 idea {
