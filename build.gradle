@@ -66,7 +66,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.7.0'
+        classpath 'nl.javadude.gradle.plugins:license-gradle-plugin:0.10.0'
     }
 }
 allprojects {
@@ -108,24 +108,29 @@ subprojects {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Artifacts
 
-    assemble {
-        dependsOn licenseFormatMain,licenseFormatTest
-    }
-
     jar {
-        manifest = defaultManifest()
+        doFirst {
+            // Timestamp changes on every build. By evaluating it later, won't needlessly fail up-to-date checks.
+            manifest = defaultManifest()
+        }
     }
 
     task javadocJar(type: Jar, dependsOn: javadoc) {
         classifier = 'javadoc'
         from 'build/docs/javadoc'
-        manifest = defaultManifest()
+        doFirst {
+            // Timestamp changes on every build. By evaluating it later, won't needlessly fail up-to-date checks.
+            manifest = defaultManifest()
+        }
     }
 
     task sourcesJar(type: Jar) {
         classifier = 'sources'
         from sourceSets.main.allSource
-        manifest = defaultManifest()
+        doFirst {
+            // Timestamp changes on every build. By evaluating it later, won't needlessly fail up-to-date checks.
+            manifest = defaultManifest()
+        }
     }
 
     artifacts {
@@ -136,6 +141,10 @@ subprojects {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Publishing
+
+    assemble {
+        dependsOn licenseFormatMain,licenseFormatTest
+    }
 
     signing {
         required { isReleaseVersion && gradle.taskGraph.hasTask("uploadArchives") }
@@ -172,7 +181,12 @@ task wrapper(type: Wrapper) {
 }
 
 idea {
+    module {
+        downloadSources = true
+    }
     project {
+        jdkName = project_jdk
         languageLevel = project_jdk
+        vcs = 'Git'
     }
 }
