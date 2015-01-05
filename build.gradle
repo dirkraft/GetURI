@@ -2,7 +2,7 @@
 // Settings
 ext {
     project_group = 'com.github.dirkraft.GetURI'
-    project_version = '0.0.4-SNAPSHOT'
+    project_version = '0.0.4'
     project_jdk = '1.6'
     project_pom = {
         name 'geturi'
