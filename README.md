@@ -22,7 +22,7 @@ Realize that by "fixing" the URL so that Java will accept it against rfc3986 (ja
 We has a maven!
 
     <dependency>
-    	<groupId>com.github.dirkraft</groupId>
+    	<groupId>com.github.dirkraft.GetURI</groupId>
     	<artifactId>GetURI</artifactId>
     	<version>0.0.4</version>
     </dependency>
