@@ -24,10 +24,10 @@ We has a maven!
     <dependency>
     	<groupId>com.github.dirkraft</groupId>
     	<artifactId>GetURI</artifactId>
-    	<version>0.0.3</version>
+    	<version>0.0.4</version>
     </dependency>
 
-Other variants: http://mvnrepository.com/artifact/com.github.dirkraft/GetURI/0.0.3
+Other variants: http://mvnrepository.com/artifact/com.github.dirkraft/GetURI/0.0.4
 
 
 ## Contributions ##
