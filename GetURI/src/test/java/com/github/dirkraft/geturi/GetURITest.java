@@ -30,8 +30,9 @@ public class GetURITest {
             "http://200.16.86.50/uhtbin/cgisirsi.exe/7TMAN1mSLU/BC/110630017/123?query_type=search&searchdata1=0521446910&srchfield1=GENERAL^SUBJECT^GENERAL^^Todos+los+campos&library=ALL&sort_by=-PBYR",
             // http://ocpsoft.org/support/topic/urisyntaxexception-illegal-character-in-path-on-square-brackets/
             "http://localhost/1.+[=+100.]+Verba+mea+auribus",
-            // I actually made this one up. Sorry. +1 Lie
-            "http://localhost/fi-shocktrade%3B-fence-tool-combo?idklol=some%2fthing%another#crunch"
+            // I actually made these up. Sorry. +n Lies
+            "http://localhost/fi-shocktrade%3B-fence-tool-combo?idklol=some%2fthing%another#crunch",
+            "http://localhost?%22&+a&+b+c%26#153&d=5300&e=PP&f=G+hi%26#174&s_id=0"
     );
 
     @Test

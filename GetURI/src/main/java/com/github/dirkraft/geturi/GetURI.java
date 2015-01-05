@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 
 public class GetURI {
 
-    private static final Pattern PAT_BAD_QUERY_CHAR = Pattern.compile("^Illegal character in (query|path) at index (\\d+):.*");
+    private static final Pattern PAT_BAD_QUERY_CHAR = Pattern.compile("^Illegal character in (query|path|fragment) at index (\\d+):.*");
     private static final Pattern PAT_MALFORMED_ESCAPE_PAIR = Pattern.compile("^Malformed escape pair at index (\\d+):.*");
 
     /**
