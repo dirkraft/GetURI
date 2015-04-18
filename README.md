@@ -27,7 +27,7 @@ We has a maven!
     	<version>0.0.4</version>
     </dependency>
 
-Other variants: http://mvnrepository.com/artifact/com.github.dirkraft/GetURI/0.0.4
+Other variants: http://mvnrepository.com/artifact/com.github.dirkraft.GetURI/GetURI/0.0.4
 
 
 ## Contributions ##
